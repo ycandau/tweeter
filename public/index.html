@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -50,9 +51,7 @@
 
     <!-- Header -->
     <header>
-      <div class="hhh">
-        <img src="/images/profile-hex.png" />
-      </div>
+      <div><img src="/images/profile-hex.png" /></div>
       <div>
         <h2><strong>Yves</strong> Candau</h2>
       </div>
@@ -60,8 +59,16 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
-      <h2>Title</h2>
-      <p>Content</p>
+      <section class="new-tweet">
+        <form action="/tweets/" method="POST">
+          <label for="tweet-text">What are you humming about?</label>
+          <textarea name="text" id="tweet-text"></textarea>
+          <footer>
+            <button type="submit">Tweet</button>
+            <output name="counter" class="counter" for="tweet-text">140</output>
+          </footer>
+        </form>
+      </section>
     </main>
   </body>
 </html>

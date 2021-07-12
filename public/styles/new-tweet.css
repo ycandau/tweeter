@@ -1,0 +1,46 @@
+.new-tweet form {
+  padding: 0.5em;
+}
+
+.new-tweet label {
+  width: 100%;
+  font-style: italic;
+}
+
+.new-tweet textarea {
+  width: 100%;
+  height: 1.5em;
+  margin: 0.5em 0 0.5em 0;
+  background-color: inherit;
+  border-color: black;
+  border-width: 0 0 1px 0;
+  resize: none;
+  outline: none;
+}
+
+.new-tweet textarea:hover,
+.new-tweet textarea:focus {
+  border-width: 0 0 2px 0;
+}
+
+.new-tweet footer {
+  width: 100%;
+  font-family: 'Bungee', cursive;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.new-tweet button {
+  padding: 0.25em 0.5em;
+  color: #ffffff;
+  background-color: #4056a1;
+  border: none;
+}
+
+.new-tweet button:hover {
+  /* @todo customize with animations */
+  color: red;
+}
