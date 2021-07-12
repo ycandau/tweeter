@@ -2,6 +2,7 @@ header {
   width: 100%;
   height: 400px;
   background-color: teal;
+  background-image: url('../images/cross-scratches.png');
   display: flex;
   flex-direction: column;
   justify-content: center;
