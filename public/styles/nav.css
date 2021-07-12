@@ -4,21 +4,23 @@ nav {
   color: #ffffff;
   background-color: #4056a1;
   padding: 0 1.5em;
+  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
-.logo {
+nav span {
   font-family: 'Bungee', cursive;
   font-size: 50px;
 }
 
-div {
+nav div {
   font-size: 30px;
   text-align: center;
 }
 
-i {
+nav i {
   color: #ff0000;
 }
