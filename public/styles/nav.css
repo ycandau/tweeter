@@ -9,7 +9,16 @@ nav {
   align-items: center;
 }
 
-nav span {
+.logo {
   font-family: 'Bungee', cursive;
   font-size: 50px;
+}
+
+div {
+  font-size: 30px;
+  text-align: center;
+}
+
+i {
+  color: #ff0000;
 }
