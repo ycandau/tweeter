@@ -44,3 +44,11 @@
   /* @todo customize with animations */
   color: red;
 }
+
+.new-tweet .pos {
+  color: black;
+}
+
+.new-tweet .neg {
+  color: red;
+}
