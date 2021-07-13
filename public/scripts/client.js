@@ -5,13 +5,13 @@
 
 const host = 'localhost';
 const port = 8080;
+const url = `http://${host}:${port}/tweets`;
 
 //------------------------------------------------------------------------------
 // Functions
 
-const createTweetElement = (tweet) => {
-  return $(`
-    <article class="tweet">
+const createTweetElement = (tweet) =>
+  $(`<article class="tweet">
       <header>
         <img src="${tweet.user.avatars}" />
         <div>${tweet.user.name}</div>
@@ -27,19 +27,25 @@ const createTweetElement = (tweet) => {
         </div>
       </footer>
     </article>`);
-};
 
 const renderTweets = (tweets) => {
   $container = $('#tweets-container');
   tweets.forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
-const loadTweets = () => $.get(`http://${host}:${port}/tweets`);
+const loadTweets = () => $.get(url);
+
+const setSubmitListener = () =>
+  $('#new-tweet form').submit(function (event) {
+    event.preventDefault();
+    $.post(url, $(this).serialize());
+  });
 
 //------------------------------------------------------------------------------
 // Function calls when document is ready
 
 $(document).ready(() => {
+  setSubmitListener();
   loadTweets()
     .then(renderTweets)
     .catch((err) => console.error(err));
