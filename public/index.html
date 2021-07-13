@@ -61,8 +61,8 @@
 
     <main>
       <!-- New tweet form -->
-      <section>
-        <form action="/tweets/" method="POST" class="new-tweet">
+      <section id="new-tweet">
+        <form action="/tweets/" method="POST">
           <label for="tweet-text">What are you humming about?</label>
           <textarea name="text" id="tweet-text"></textarea>
           <footer>
@@ -72,7 +72,7 @@
         </form>
       </section>
 
-      <!-- Tweet article -->
+      <!-- Tweets -->
       <section id="tweets-container"></section>
     </main>
 
