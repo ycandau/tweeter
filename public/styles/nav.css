@@ -7,7 +7,7 @@ nav {
   background-color: #4056a1;
   padding: 0 1.5em;
   position: fixed;
-  top: 0px;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
