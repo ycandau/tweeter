@@ -1,8 +1,5 @@
-/*
- * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
- * https://css-tricks.com/international-box-sizing-awareness-day/
- * Do not modify these two selectors, please
- */
+/* layout.css */
+
 html {
   box-sizing: border-box;
 }
@@ -23,7 +20,6 @@ body {
   align-items: center;
 }
 
-h1,
 h2,
 div {
   margin: 0;

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/tweet.css" type="text/css" />
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -55,16 +56,14 @@
 
     <!-- Header -->
     <header>
-      <div><img src="/images/profile-hex.png" /></div>
-      <div>
-        <h2><strong>Yves</strong> Candau</h2>
-      </div>
+      <img src="/images/profile-hex.png" />
+      <h2><strong>Yves</strong> Candau</h2>
     </header>
 
-    <!-- Page-specific (main) content here -->
     <main>
-      <section class="new-tweet">
-        <form action="/tweets/" method="POST">
+      <!-- New tweet form -->
+      <section>
+        <form action="/tweets/" method="POST" class="new-tweet">
           <label for="tweet-text">What are you humming about?</label>
           <textarea name="text" id="tweet-text"></textarea>
           <footer>
@@ -72,6 +71,25 @@
             <output name="counter" for="tweet-text">140</output>
           </footer>
         </form>
+      </section>
+
+      <!-- Tweet articlea -->
+      <section>
+        <article class="tweet">
+          <header>
+            <div>Newton</div>
+            <div>@SirIsaac</div>
+          </header>
+          <div>I stand on the shoulder of giants.</div>
+          <footer>
+            <div>10 days ago</div>
+            <div>
+              <i class="fas fa-flag"></i>
+              <i class="fas fa-retweet"></i>
+              <i class="fas fa-heart"></i>
+            </div>
+          </footer>
+        </article>
       </section>
     </main>
   </body>
