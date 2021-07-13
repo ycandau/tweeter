@@ -1,5 +1,14 @@
 // client.js
 
+//------------------------------------------------------------------------------
+// Constants
+
+const host = 'localhost';
+const port = 8080;
+
+//------------------------------------------------------------------------------
+// Functions
+
 const createTweetElement = (tweet) => {
   return $(`
     <article class="tweet">
@@ -25,21 +34,13 @@ const renderTweets = (tweets) => {
   tweets.forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
-//------------------------------------------------------------------------------
-// Testing
+const loadTweets = () => $.get(`http://${host}:${port}/tweets`);
 
-const aTweet = {
-  user: {
-    name: 'Newton',
-    avatars: 'https://i.imgur.com/73hZDYK.png',
-    handle: '@SirIsaac',
-  },
-  content: {
-    text: 'If I have seen further it is by standing on the shoulders of giants',
-  },
-  created_at: 1461116232227,
-};
+//------------------------------------------------------------------------------
+// Function calls when document is ready
 
 $(document).ready(() => {
-  renderTweets([aTweet, aTweet, aTweet]);
+  loadTweets()
+    .then(renderTweets)
+    .catch((err) => console.error(err));
 });
