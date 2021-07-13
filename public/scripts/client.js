@@ -20,6 +20,11 @@ const createTweetElement = (tweet) => {
     </article>`);
 };
 
+const renderTweets = (tweets) => {
+  $container = $('#tweets-container');
+  tweets.forEach((tweet) => $container.append(createTweetElement(tweet)));
+};
+
 //------------------------------------------------------------------------------
 // Testing
 
@@ -35,5 +40,6 @@ const aTweet = {
   created_at: 1461116232227,
 };
 
-const $tweet = createTweetElement(aTweet);
-$('#tweets-container').append($tweet);
+$(document).ready(() => {
+  renderTweets([aTweet, aTweet, aTweet]);
+});
