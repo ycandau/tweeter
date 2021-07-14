@@ -14,33 +14,31 @@ const URL = `http://${HOST}:${PORT}/tweets`;
 //------------------------------------------------------------------------------
 // Functions
 
-const escape = (str) => $('<div>').text(str).html();
+const createIcons = (...icons) =>
+  icons.reduce((array, icon) => {
+    array.push($('<i>').addClass(`fas fa-${icon}`));
+    return array;
+  }, []);
 
-const createTweetElement = (tweet) =>
-  $(`<article class="tweet">
-      <header>
-        <img src="${tweet.user.avatars}" />
-        <div>${escape(tweet.user.name)}</div>
-        <div>${escape(tweet.user.handle)}</div>
-      </header>
-      <div>${escape(tweet.content.text)}</div>
-      <footer>
-        <div>${timeago.format(tweet.created_at)}</div>
-        <div>
-          <i class="fas fa-flag"></i>
-          <i class="fas fa-retweet"></i>
-          <i class="fas fa-heart"></i>
-        </div>
-      </footer>
-    </article>`);
+const createTweetElement = (tweet) => {
+  const $header = $('<header>').append(
+    $('<img>').attr('src', tweet.user.avatars),
+    $('<div>').text(tweet.user.name),
+    $('<div>').text(tweet.user.handle)
+  );
+  const $content = $('<div>').text(tweet.content.text);
+  const $footer = $('<footer>').append(
+    $('<div>').text(timeago.format(tweet.created_at)),
+    $('<div>').append(createIcons('flag', 'retweet', 'heart'))
+  );
+  return $('<article>').append($header, $content, $footer).addClass('tweet');
+};
 
 // necessary to avoid element briefly showing on loadup
 const setupErrorElem = () => {
   $('#error')
     .css({ display: 'flex' }) // starts as 'none' on loadup
-    .append('<i class="fas fa-exclamation"></i>')
-    .append(`<span></span>`)
-    .append('<i class="fas fa-exclamation"></i>')
+    .append(createIcons('exclamation'), '<span>', createIcons('exclamation'))
     .slideUp(0);
 };
 
