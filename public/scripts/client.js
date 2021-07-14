@@ -33,11 +33,18 @@ const createTweetElement = (tweet) =>
     </article>`);
 
 const renderTweets = (tweets) => {
-  $container = $('#tweets-container');
-  tweets.forEach((tweet) => $container.append(createTweetElement(tweet)));
+  $container = $('#tweets-container').empty();
+  [...tweets] // avoid mutating in general
+    .sort((t1, t2) => t2.created_at - t1.created_at)
+    .forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
 const loadTweets = () => $.get(URL);
+
+const refreshTweets = () =>
+  loadTweets()
+    .then(renderTweets)
+    .catch((err) => console.error(err));
 
 const setSubmitListener = () => {
   $('#new-tweet > form').submit(function (event) {
@@ -54,8 +61,11 @@ const setSubmitListener = () => {
       alert('Tweet too long');
       return;
     }
-    $.post(URL, $(this).serialize());
+    $.post(URL, $(this).serialize()).then(refreshTweets); // async
+
+    // Reset form: OK to do synchronously
     $textarea.val('');
+    $(this).children('footer').children('output').text(140);
   });
 };
 
@@ -64,7 +74,5 @@ const setSubmitListener = () => {
 
 $(document).ready(() => {
   setSubmitListener();
-  loadTweets()
-    .then(renderTweets)
-    .catch((err) => console.error(err));
+  refreshTweets();
 });
