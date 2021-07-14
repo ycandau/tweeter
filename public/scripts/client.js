@@ -34,6 +34,22 @@ const createTweetElement = (tweet) =>
       </footer>
     </article>`);
 
+// necessary to avoid element briefly showing on loadup
+const setupErrorElem = () => {
+  $('#error')
+    .css({ display: 'flex' }) // starts as 'none' on loadup
+    .append('<i class="fas fa-exclamation"></i>')
+    .append(`<span></span>`)
+    .append('<i class="fas fa-exclamation"></i>')
+    .slideUp(0);
+};
+
+const processError = (msg) => {
+  const $error = $('#error').slideDown(200);
+  $error.children('span').text(msg);
+  $error.next().next().focus();
+};
+
 const renderTweets = (tweets) => {
   $container = $('#tweets-container').empty();
   [...tweets] // avoid mutating in general
@@ -46,25 +62,24 @@ const refreshTweets = () =>
     .then(renderTweets)
     .catch((err) => console.error(err));
 
-const setSubmitListener = () => {
-  $('#new-tweet > form').submit(function (event) {
+const setupSubmitListener = () => {
+  $('#new-tweet').submit(function (event) {
     event.preventDefault();
     const $textarea = $(this).children('textarea');
     const msg = $textarea.val();
+
+    // Validation
+    $('#error').slideUp(200);
     if (!msg) {
-      $textarea.focus();
-      alert('Empty tweet');
-      return;
+      return processError('Empty tweet: You gotta say something.');
     }
     if (msg.length > 140) {
-      $textarea.focus();
-      alert('Tweet too long');
-      return;
+      return processError('Tweet too long: Keep it under 140 characters.');
     }
-    $.post(URL, $(this).serialize()).then(refreshTweets); // async
 
-    // Reset form: OK to do synchronously
-    $textarea.val('');
+    // Happy
+    $.post(URL, $(this).serialize()).then(refreshTweets); // async
+    $textarea.val(''); // sync
     $(this).children('footer').children('output').text(140);
   });
 };
@@ -73,6 +88,7 @@ const setSubmitListener = () => {
 // Function calls when document is ready
 
 $(document).ready(() => {
-  setSubmitListener();
+  setupErrorElem();
+  setupSubmitListener();
   refreshTweets();
 });
