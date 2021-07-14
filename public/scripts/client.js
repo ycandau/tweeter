@@ -14,14 +14,16 @@ const URL = `http://${HOST}:${PORT}/tweets`;
 //------------------------------------------------------------------------------
 // Functions
 
+const escape = (str) => $('<div>').text(str).html();
+
 const createTweetElement = (tweet) =>
   $(`<article class="tweet">
       <header>
         <img src="${tweet.user.avatars}" />
-        <div>${tweet.user.name}</div>
-        <div>${tweet.user.handle}</div>
+        <div>${escape(tweet.user.name)}</div>
+        <div>${escape(tweet.user.handle)}</div>
       </header>
-      <div>${tweet.content.text}</div>
+      <div>${escape(tweet.content.text)}</div>
       <footer>
         <div>${timeago.format(tweet.created_at)}</div>
         <div>
