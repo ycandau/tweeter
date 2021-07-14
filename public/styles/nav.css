@@ -22,8 +22,27 @@ nav > span {
 nav > div {
   font-size: 30px;
   text-align: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-nav i {
+nav > div > i {
   color: #ff0000;
+}
+
+@keyframes wobble {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+nav > div:hover {
+  color: #eb3;
+}
+
+nav > div:hover > i {
+  animation: wobble 1s infinite ease-in-out alternate;
 }
