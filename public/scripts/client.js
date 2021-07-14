@@ -1,11 +1,15 @@
 // client.js
 
+// @todo:
+// - focus on submit button
+// - wrap long tweets in tweet article
+
 //------------------------------------------------------------------------------
 // Constants
 
-const host = 'localhost';
-const port = 8080;
-const url = `http://${host}:${port}/tweets`;
+const HOST = 'localhost';
+const PORT = 8080;
+const URL = `http://${HOST}:${PORT}/tweets`;
 
 //------------------------------------------------------------------------------
 // Functions
@@ -33,13 +37,27 @@ const renderTweets = (tweets) => {
   tweets.forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
-const loadTweets = () => $.get(url);
+const loadTweets = () => $.get(URL);
 
-const setSubmitListener = () =>
-  $('#new-tweet form').submit(function (event) {
+const setSubmitListener = () => {
+  $('#new-tweet > form').submit(function (event) {
     event.preventDefault();
-    $.post(url, $(this).serialize());
+    const $textarea = $(this).children('textarea');
+    const msg = $textarea.val();
+    if (!msg) {
+      $textarea.focus();
+      alert('Empty tweet');
+      return;
+    }
+    if (msg.length > 140) {
+      $textarea.focus();
+      alert('Tweet too long');
+      return;
+    }
+    $.post(URL, $(this).serialize());
+    $textarea.val('');
   });
+};
 
 //------------------------------------------------------------------------------
 // Function calls when document is ready
