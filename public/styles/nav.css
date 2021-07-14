@@ -46,3 +46,19 @@ nav > div:hover {
 nav > div:hover > i {
   animation: wobble 1s infinite ease-in-out alternate;
 }
+
+/* Included in nav because its function is navigational
+   even though it is a child of body for positioning purposes */
+button#to-top {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+
+button#to-top.reveal {
+  opacity: 1;
+  visibility: visible;
+}

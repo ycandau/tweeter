@@ -86,15 +86,26 @@ const setupSubmitListener = () => {
 };
 
 const setupScrollListener = () => {
-  // Scroll does not bubble up so we use native addEventListener() method
+  // Scroll does not bubble up so we use addEventListener()
   // and capture at the document level
   document.addEventListener(
     'scroll',
-    function (event) {
-      console.log('scrolling', event.target);
+    (event) => {
+      $('#to-top').addClass('reveal');
+      console.log(Math.max($('html').scrollTop(), $('body').scrollTop()));
     },
-    { capture: true }
+    true
   );
+
+  $('#to-top').click(() => {
+    const dy = Math.max($('html').scrollTop(), $('body').scrollTop());
+    const duration = Math.min(300, dy / 3);
+    $('html, body')
+      .animate({ scrollTop: 0 }, duration)
+      .promise()
+      .done(() => $('#to-top').removeClass('reveal'));
+    console.log($('html').scrollTop(), $('body').scrollTop());
+  });
 };
 
 //------------------------------------------------------------------------------
