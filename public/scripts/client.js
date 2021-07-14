@@ -57,10 +57,11 @@ const renderTweets = (tweets) => {
     .forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
-const refreshTweets = () =>
+const refreshTweets = () => {
   $.get(URL)
     .then(renderTweets)
     .catch((err) => console.error(err));
+};
 
 const setupSubmitListener = () => {
   $('#new-tweet').submit(function (event) {
@@ -84,11 +85,24 @@ const setupSubmitListener = () => {
   });
 };
 
+const setupScrollListener = () => {
+  // Scroll does not bubble up so we use native addEventListener() method
+  // and capture at the document level
+  document.addEventListener(
+    'scroll',
+    function (event) {
+      console.log('scrolling', event.target);
+    },
+    { capture: true }
+  );
+};
+
 //------------------------------------------------------------------------------
 // Function calls when document is ready
 
 $(document).ready(() => {
   setupErrorElem();
   setupSubmitListener();
+  setupScrollListener();
   refreshTweets();
 });
