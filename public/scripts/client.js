@@ -39,10 +39,8 @@ const renderTweets = (tweets) => {
     .forEach((tweet) => $container.append(createTweetElement(tweet)));
 };
 
-const loadTweets = () => $.get(URL);
-
 const refreshTweets = () =>
-  loadTweets()
+  $.get(URL)
     .then(renderTweets)
     .catch((err) => console.error(err));
 
