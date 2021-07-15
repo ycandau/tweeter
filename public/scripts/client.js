@@ -1,7 +1,8 @@
 // client.js
 
 // @todo:
-// - focus on submit button
+// - Style submit button (bug on focus)
+// - Style scroll-to-top button
 
 //------------------------------------------------------------------------------
 // Constants
@@ -63,7 +64,7 @@ const displayError = (msg) => {
   $error.children('span').text(msg);
 };
 
-const setupSubmitListener = () => {
+const addSubmitListener = () => {
   $('#new-tweet').submit(function (event) {
     event.preventDefault();
     const $textarea = $(this).children('textarea');
@@ -94,28 +95,44 @@ const scrollTop = () =>
   window.pageYOffset ||
   0;
 
-const setupScrollListener = () => {
+const scrollToTop = (maxDuration) => {
+  // duration is proportional then capped
+  const duration = Math.min(maxDuration, scrollTop() / 3);
+  $('html, body').animate({ scrollTop: 0 }, duration);
+};
+
+const addScrollListener = () => {
   // Use addEventListener() because scroll does not bubble up
   // and capture at the document level
   document.addEventListener(
     'scroll',
     () => {
-      if (scrollTop()) {
+      if (scrollTop() !== 0) {
         $('#to-top').fadeIn(300);
-        return;
+      } else {
+        $('#to-top').fadeOut(300); // fade at top
       }
-      $('#to-top').fadeOut(300); // fade at top
     },
     true
   );
 };
 
-const setupScrollButtonListener = () => {
+const addScrollButtonListener = () => {
   $('#to-top').click(() => {
-    const duration = Math.min(300, scrollTop() / 3);
-    $('html, body') // for cross-browser compatibility
-      .animate({ scrollTop: 0 }, duration);
+    scrollToTop(300);
   });
+};
+
+const onComposeButtonClick = () => {
+  const $newTweet = $('#new-tweet');
+  if ($newTweet.is(':visible')) {
+    $('#tweet-text').blur();
+    $newTweet.slideUp(300);
+  } else {
+    scrollToTop(300);
+    $newTweet.slideDown(300);
+    $('#tweet-text').focus();
+  }
 };
 
 //------------------------------------------------------------------------------
@@ -123,8 +140,9 @@ const setupScrollButtonListener = () => {
 
 $(document).ready(() => {
   setupErrorDisplay();
-  setupSubmitListener();
-  setupScrollListener();
-  setupScrollButtonListener();
+  addSubmitListener();
+  addScrollListener();
+  addScrollButtonListener();
+  $('#compose').click(onComposeButtonClick);
   refreshTweets();
 });

@@ -14,19 +14,19 @@ nav {
   z-index: 1;
 }
 
-nav > span {
+#logo {
   font-family: 'Bungee', cursive;
   font-size: 50px;
 }
 
-nav > div {
+#compose {
   font-size: 30px;
   text-align: center;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
-nav > div > i {
+#compose > i {
   color: #ff0000;
 }
 
@@ -39,17 +39,17 @@ nav > div > i {
   }
 }
 
-nav > div:hover {
+#compose:hover {
   color: #eb3;
 }
 
-nav > div:hover > i {
+#compose:hover > i {
   animation: wobble 1s infinite ease-in-out alternate;
 }
 
 /* Included in nav because its function is navigational
    even though it is a child of body for positioning purposes */
-button#to-top {
+#to-top {
   position: fixed;
   bottom: 1em;
   right: 1em;
