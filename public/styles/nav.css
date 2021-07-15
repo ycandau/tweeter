@@ -57,6 +57,7 @@ nav {
   border-radius: 1em;
   background-color: red;
   color: white;
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.4);
   bottom: 1em;
   right: calc(5% - 1em + 1px);
   display: none;
@@ -76,6 +77,9 @@ nav {
 
 #to-top:hover {
   color: #eb3;
+  width: calc(2em + 1px);
+  height: calc(2em + 1px);
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.4);
 }
 
 #to-top:hover > i {
