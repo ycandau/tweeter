@@ -2,7 +2,8 @@
 
 // @todo:
 // - focus on submit button
-// - wrap long tweets in tweet article
+// - timing of error render when message switches
+// - use display: none rather than visibility, or try out $.hide()
 
 //------------------------------------------------------------------------------
 // Constants
@@ -48,15 +49,19 @@ const processError = (msg) => {
   $error.next().next().focus();
 };
 
+// Used only once, could refactor out, kept here for separation of tasks
+const loadTweets = () => $.get(URL);
+
 const renderTweets = (tweets) => {
   $container = $('#tweets-container').empty();
   [...tweets] // avoid mutating in general
-    .sort((t1, t2) => t2.created_at - t1.created_at)
-    .forEach((tweet) => $container.append(createTweetElement(tweet)));
+    .forEach((tweet) => $container.prepend(createTweetElement(tweet)));
+  // Assumes server data already sorted, otherwise use:
+  // .sort((t1, t2) => t2.created_at - t1.created_at)
 };
 
 const refreshTweets = () => {
-  $.get(URL)
+  loadTweets()
     .then(renderTweets)
     .catch((err) => console.error(err));
 };
