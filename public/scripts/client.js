@@ -15,9 +15,7 @@ const URL = `http://${HOST}:${PORT}/tweets`;
 //------------------------------------------------------------------------------
 // Function calls
 
-(($) => {
-  refreshTweets();
-})(jQuery);
+$(() => refreshTweets());
 
 //------------------------------------------------------------------------------
 // DOM: Create an array of icons from string arguments
