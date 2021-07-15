@@ -2,8 +2,6 @@
 
 // @todo:
 // - focus on submit button
-// - timing of error render when message switches
-// - use display: none rather than visibility, or try out $.hide()
 
 //------------------------------------------------------------------------------
 // Constants
@@ -35,27 +33,12 @@ const createTweetElement = (tweet) => {
   return $('<article>').append($header, $content, $footer).addClass('tweet');
 };
 
-// necessary to avoid element briefly showing on loadup
-const setupErrorElem = () => {
-  $('#error')
-    .css({ display: 'flex' }) // starts as 'none' on loadup
-    .append(createIcons('exclamation'), '<span>', createIcons('exclamation'))
-    .slideUp(0);
-};
-
-const processError = (msg) => {
-  const $error = $('#error').slideDown(200);
-  $error.children('span').text(msg);
-  $error.next().next().focus();
-};
-
 // Used only once, could refactor out, kept here for separation of tasks
 const loadTweets = () => $.get(URL);
 
 const renderTweets = (tweets) => {
   $container = $('#tweets-container').empty();
-  [...tweets] // avoid mutating in general
-    .forEach((tweet) => $container.prepend(createTweetElement(tweet)));
+  [...tweets].forEach((tweet) => $container.prepend(createTweetElement(tweet)));
   // Assumes server data already sorted, otherwise use:
   // .sort((t1, t2) => t2.created_at - t1.created_at)
 };
@@ -66,22 +49,39 @@ const refreshTweets = () => {
     .catch((err) => console.error(err));
 };
 
+const setupErrorDisplay = () => {
+  $('#error')
+    .css({ display: 'flex' }) // set to 'none' on loadup to hide before script
+    .append(createIcons('exclamation'), '<span>', createIcons('exclamation'))
+    .hide(0);
+};
+
+const displayError = (msg) => {
+  const $error = $('#error');
+  $error.slideUp(0).slideDown(200);
+  $error.next().next().focus();
+  $error.children('span').text(msg);
+};
+
 const setupSubmitListener = () => {
   $('#new-tweet').submit(function (event) {
     event.preventDefault();
     const $textarea = $(this).children('textarea');
-    const msg = $textarea.val();
+    const text = $textarea.val();
 
-    // Validation
-    $('#error').slideUp(200);
-    if (!msg) {
-      return processError('Empty tweet: You gotta say something.');
-    }
-    if (msg.length > 140) {
-      return processError('Tweet too long: Keep it under 140 characters.');
+    const errorMsg = !text
+      ? 'Empty tweet: You gotta say something.'
+      : text.length > 140
+      ? 'Tweet too long: Keep it under 140 characters.'
+      : '';
+
+    if (errorMsg) {
+      displayError(errorMsg);
+      return;
     }
 
     // Happy
+    $('#error').slideUp(200);
     $.post(URL, $(this).serialize()).then(refreshTweets); // async
     $textarea.val(''); // sync
     $(this).children('footer').children('output').text(140);
@@ -122,7 +122,7 @@ const setupScrollButtonListener = () => {
 // Function calls when document is ready
 
 $(document).ready(() => {
-  setupErrorElem();
+  setupErrorDisplay();
   setupSubmitListener();
   setupScrollListener();
   setupScrollButtonListener();

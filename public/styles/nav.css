@@ -53,5 +53,5 @@ button#to-top {
   position: fixed;
   bottom: 1em;
   right: 1em;
-  display: none; /* initial state */
+  display: none;
 }
