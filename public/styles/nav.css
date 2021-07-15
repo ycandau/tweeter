@@ -53,12 +53,5 @@ button#to-top {
   position: fixed;
   bottom: 1em;
   right: 1em;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s;
-}
-
-button#to-top.reveal {
-  opacity: 1;
-  visibility: visible;
+  display: none; /* initial state */
 }

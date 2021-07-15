@@ -88,26 +88,33 @@ const setupSubmitListener = () => {
   });
 };
 
+const scrollTop = () =>
+  document.documentElement.scrollTop || // for cross-browser compatibility
+  document.body.scrollTop ||
+  window.pageYOffset ||
+  0;
+
 const setupScrollListener = () => {
-  // Scroll does not bubble up so we use addEventListener()
+  // Use addEventListener() because scroll does not bubble up
   // and capture at the document level
   document.addEventListener(
     'scroll',
-    (event) => {
-      $('#to-top').addClass('reveal');
-      console.log(Math.max($('html').scrollTop(), $('body').scrollTop()));
+    () => {
+      if (scrollTop()) {
+        $('#to-top').fadeIn(300);
+        return;
+      }
+      $('#to-top').fadeOut(300); // fade at top
     },
     true
   );
+};
 
+const setupScrollButtonListener = () => {
   $('#to-top').click(() => {
-    const dy = Math.max($('html').scrollTop(), $('body').scrollTop());
-    const duration = Math.min(300, dy / 3);
-    $('html, body')
-      .animate({ scrollTop: 0 }, duration)
-      .promise()
-      .done(() => $('#to-top').removeClass('reveal'));
-    console.log($('html').scrollTop(), $('body').scrollTop());
+    const duration = Math.min(300, scrollTop() / 3);
+    $('html, body') // for cross-browser compatibility
+      .animate({ scrollTop: 0 }, duration);
   });
 };
 
@@ -118,5 +125,6 @@ $(document).ready(() => {
   setupErrorElem();
   setupSubmitListener();
   setupScrollListener();
+  setupScrollButtonListener();
   refreshTweets();
 });
