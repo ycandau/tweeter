@@ -1,8 +1,9 @@
+//------------------------------------------------------------------------------
 // client.js
+//------------------------------------------------------------------------------
 
 // @todo:
 // - Style submit button (bug on focus)
-// - Style scroll-to-top button
 
 //------------------------------------------------------------------------------
 // Constants
@@ -12,15 +13,26 @@ const PORT = 8080;
 const URL = `http://${HOST}:${PORT}/tweets`;
 
 //------------------------------------------------------------------------------
-// Functions
+// Function calls
 
-const createIcons = (...icons) =>
-  icons.reduce((array, icon) => {
+(($) => {
+  refreshTweets();
+})(jQuery);
+
+//------------------------------------------------------------------------------
+// DOM: Create an array of icons from string arguments
+
+function createIcons(...icons) {
+  return icons.reduce((array, icon) => {
     array.push($('<i>').addClass(`fas fa-${icon}`));
     return array;
   }, []);
+}
 
-const createTweetElement = (tweet) => {
+//------------------------------------------------------------------------------
+// DOM: Create an article containing a tweet
+
+function createTweetElement(tweet) {
   const $header = $('<header>').append(
     $('<img>').attr('src', tweet.user.avatars),
     $('<div>').text(tweet.user.name),
@@ -32,26 +44,30 @@ const createTweetElement = (tweet) => {
     $('<div>').append(createIcons('flag', 'retweet', 'heart'))
   );
   return $('<article>').append($header, $content, $footer).addClass('tweet');
-};
+}
 
-const loadTweets = () => $.get(URL);
+//------------------------------------------------------------------------------
+// Ajax: Get request to load tweets
 
-const renderTweets = (tweets) => {
-  $container = $('#tweets-container').empty();
+function loadTweets() {
+  return $.get(URL);
+}
+
+//------------------------------------------------------------------------------
+// DOM: Render tweets from an array of tweet objects
+
+function renderTweets(tweets) {
+  const $container = $('#tweets-container').empty();
   [...tweets].forEach((tweet) => $container.prepend(createTweetElement(tweet)));
   // Assumes server data already sorted, otherwise use:
   // .sort((t1, t2) => t2.created_at - t1.created_at)
-};
+}
 
-const refreshTweets = () => {
+//------------------------------------------------------------------------------
+// Refresh tweets: Combines load and render
+
+function refreshTweets() {
   loadTweets()
     .then(renderTweets)
     .catch((err) => console.error(err));
-};
-
-//------------------------------------------------------------------------------
-// Call when document is ready
-
-$(document).ready(() => {
-  refreshTweets();
-});
+}

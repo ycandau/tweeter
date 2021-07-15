@@ -57,6 +57,6 @@
   color: red;
 }
 
-#new-tweet > footer > output.neg {
+#new-tweet > footer > output.invalid {
   color: red;
 }
