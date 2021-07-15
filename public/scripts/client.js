@@ -34,7 +34,6 @@ const createTweetElement = (tweet) => {
   return $('<article>').append($header, $content, $footer).addClass('tweet');
 };
 
-// Used only once, could refactor out, kept here for separation of tasks
 const loadTweets = () => $.get(URL);
 
 const renderTweets = (tweets) => {
@@ -64,74 +63,60 @@ const displayError = (msg) => {
   $error.children('span').text(msg);
 };
 
-const addSubmitListener = () => {
-  $('#new-tweet').submit(function (event) {
-    event.preventDefault();
-    const $textarea = $(this).children('textarea');
-    const text = $textarea.val();
+onTweetSubmit = (event) => {
+  event.preventDefault();
+  const $form = $('#new-tweet');
+  const $textarea = $form.children('textarea');
+  const text = $textarea.val();
 
-    const errorMsg = !text
-      ? 'Empty tweet: You gotta say something.'
-      : text.length > 140
-      ? 'Tweet too long: Keep it under 140 characters.'
-      : '';
+  const errorMsg = !text
+    ? 'Empty tweet: You gotta say something.'
+    : text.length > 140
+    ? 'Tweet too long: Keep it under 140 characters.'
+    : '';
 
-    if (errorMsg) {
-      displayError(errorMsg);
-      return;
-    }
+  if (errorMsg) {
+    displayError(errorMsg);
+    return;
+  }
 
-    // Happy
-    $('#error').slideUp(200);
-    $.post(URL, $(this).serialize()).then(refreshTweets); // async
-    $textarea.val(''); // sync
-    $(this).children('footer').children('output').text(140);
-  });
+  // Happy
+  $('#error').slideUp(200);
+  $.post(URL, $form.serialize()).then(refreshTweets); // async
+  $textarea.val(''); // sync
+  $form.children('footer').children('output').text(140);
 };
 
 const scrollTop = () =>
-  document.documentElement.scrollTop || // for cross-browser compatibility
+  // for cross-browser compatibility
+  document.documentElement.scrollTop ||
   document.body.scrollTop ||
   window.pageYOffset ||
   0;
 
-const scrollToTop = (maxDuration) => {
-  // duration is proportional then capped
+const scrollToTop = (maxDuration) => () => {
+  // duration is first proportional then capped
   const duration = Math.min(maxDuration, scrollTop() / 3);
   $('html, body').animate({ scrollTop: 0 }, duration);
 };
 
-const addScrollListener = () => {
-  // Use addEventListener() because scroll does not bubble up
-  // and capture at the document level
-  document.addEventListener(
-    'scroll',
-    () => {
-      if (scrollTop() !== 0) {
-        $('#to-top').fadeIn(300);
-      } else {
-        $('#to-top').fadeOut(300); // fade at top
-      }
-    },
-    true
-  );
-};
-
-const addScrollButtonListener = () => {
-  $('#to-top').click(() => {
-    scrollToTop(300);
-  });
-};
-
-const onComposeButtonClick = () => {
+const onComposeClick = () => {
   const $newTweet = $('#new-tweet');
   if ($newTweet.is(':visible')) {
     $('#tweet-text').blur();
     $newTweet.slideUp(300);
   } else {
-    scrollToTop(300);
+    scrollToTop(300)();
     $newTweet.slideDown(300);
     $('#tweet-text').focus();
+  }
+};
+
+const onScroll = () => {
+  if (!scrollTop()) {
+    $('#to-top').fadeOut(300); // fade when at top
+  } else {
+    $('#to-top').fadeIn(300);
   }
 };
 
@@ -139,10 +124,17 @@ const onComposeButtonClick = () => {
 // Function calls when document is ready
 
 $(document).ready(() => {
+  // General init
   setupErrorDisplay();
-  addSubmitListener();
-  addScrollListener();
-  addScrollButtonListener();
-  $('#compose').click(onComposeButtonClick);
+
+  // Listeners
+  $('#new-tweet').submit(onTweetSubmit);
+  $('#to-top').click(scrollToTop(300));
+  $('#compose').click(onComposeClick);
+
+  // For scroll (does not bubble up):
+  // Use addEventListener() and capture at the document level
+  document.addEventListener('scroll', onScroll, true);
+
   refreshTweets();
 });
