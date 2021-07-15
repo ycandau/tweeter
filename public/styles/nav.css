@@ -30,7 +30,7 @@ nav {
   color: #ff0000;
 }
 
-@keyframes wobble {
+@keyframes wobbleDown {
   from {
     transform: translateY(0px);
   }
@@ -44,14 +44,40 @@ nav {
 }
 
 #compose:hover > i {
-  animation: wobble 1s infinite ease-in-out alternate;
+  animation: wobbleDown 1s infinite ease-in-out alternate;
 }
 
 /* Included in nav because its function is navigational
    even though it is a child of body for positioning purposes */
 #to-top {
   position: fixed;
+  width: 2em;
+  height: 2em;
+  border: none;
+  border-radius: 1em;
+  background-color: red;
+  color: white;
   bottom: 1em;
-  right: 1em;
+  right: calc(5% - 1em + 1px);
   display: none;
+}
+
+@keyframes wobbleUp {
+  from {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(5px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+}
+
+#to-top:hover {
+  color: #eb3;
+}
+
+#to-top:hover > i {
+  animation: wobbleUp 2s infinite linear;
 }

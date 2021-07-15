@@ -63,7 +63,7 @@ const displayError = (msg) => {
   $error.children('span').text(msg);
 };
 
-onTweetSubmit = (event) => {
+const onTweetSubmit = (event) => {
   event.preventDefault();
   const $form = $('#new-tweet');
   const $textarea = $form.children('textarea');
@@ -94,7 +94,7 @@ const scrollTop = () =>
   window.pageYOffset ||
   0;
 
-const scrollToTop = (maxDuration) => () => {
+const scrollToTop = (maxDuration) => {
   // duration is first proportional then capped
   const duration = Math.min(maxDuration, scrollTop() / 3);
   $('html, body').animate({ scrollTop: 0 }, duration);
@@ -106,17 +106,28 @@ const onComposeClick = () => {
     $('#tweet-text').blur();
     $newTweet.slideUp(300);
   } else {
-    scrollToTop(300)();
+    scrollToTop(300);
     $newTweet.slideDown(300);
     $('#tweet-text').focus();
   }
 };
 
+const onToTopClick = () => {
+  scrollToTop(300);
+  const $newTweet = $('#new-tweet');
+  if (!$newTweet.is(':visible')) {
+    $newTweet.slideDown(300);
+  }
+  $('#tweet-text').focus();
+};
+
 const onScroll = () => {
   if (!scrollTop()) {
-    $('#to-top').fadeOut(300); // fade when at top
+    $('#to-top').fadeOut(300);
+    $('#compose').fadeIn(300);
   } else {
     $('#to-top').fadeIn(300);
+    $('#compose').fadeOut(300);
   }
 };
 
@@ -129,8 +140,8 @@ $(document).ready(() => {
 
   // Listeners
   $('#new-tweet').submit(onTweetSubmit);
-  $('#to-top').click(scrollToTop(300));
   $('#compose').click(onComposeClick);
+  $('#to-top').click(onToTopClick);
 
   // For scroll (does not bubble up):
   // Use addEventListener() and capture at the document level
