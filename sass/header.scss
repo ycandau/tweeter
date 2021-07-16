@@ -42,8 +42,11 @@ body > header {
   body > header {
     grid-row: 1;
     height: base.$header-height-narrow;
-    padding-top: 60px;
     justify-content: center;
+    
+    img {
+      margin-top: 60px;
+    }
   }
 }
 
