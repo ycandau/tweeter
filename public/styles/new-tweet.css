@@ -9,6 +9,7 @@
   margin: 0 -0.5em 1em -0.5em;
   display: none;
   justify-content: space-between;
+  text-align: center;
 }
 #new-tweet label {
   width: 100%;
