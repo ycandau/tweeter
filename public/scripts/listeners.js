@@ -100,7 +100,7 @@
     const text = $textarea.val();
 
     const errorMsg = !text
-      ? 'Empty tweet: You gotta say something.'
+      ? 'Empty tweet: You have to say something.'
       : text.length > MAX_LENGTH
       ? `Tweet too long: Keep it under ${MAX_LENGTH} characters.`
       : '';

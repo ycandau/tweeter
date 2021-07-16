@@ -52,3 +52,14 @@ main {
     overflow: auto;
   }
 }
+
+@media only screen and (min-width: 1200px) {
+  body {
+    grid-template-columns: 1fr 300px 900px 1fr;
+  }
+
+  body > main {
+    grid-column: 3;
+    border-right: 2px solid colors.$secondary;
+  }
+}

@@ -23,7 +23,7 @@ All features are implemented, including the **stretch** components of the projec
 
 - The `new tweet form` slides up and down when the `compose button` in the navigation bar  is pressed.
 - The `textarea` in the form is automatically focused on slide down.
-- A second lower button appears when the `main` area is scrolled down from the top.
+- A second button appears in the lower right corner when the `main` area is scrolled down.
 - Pressing this button scrolls back to the top of the `main` area.
 - This also slides down the `new tweet form` if necessary.
 - Only one of the two buttons is shown at a time:
@@ -33,7 +33,7 @@ All features are implemented, including the **stretch** components of the projec
 In order to practice different techniques, the application combines a variety of approaches:
 
 - **CSS transitions** (highlights on hover)
-- **CSS animations** (cyclic translations of the icons in the two buttons)
+- **CSS animations** (cyclical translations of the icons in the two buttons)
 - **jQuery animations** (slideUp, slideDown, scrolling)
 
 The layout is reorganized responsively with a **CSS grid** to adjust to different screen sizes.
@@ -70,24 +70,24 @@ The stylesheets have been refactored using **SASS preprocessing** features:
 ## Usage
 
 Clone the repository with [git](https://git-scm.com/):
-
 ```
 git clone git@github.com:ycandau/tweeter.git
 ```
 
 Install all the dependencies with [npm](https://www.npmjs.com/):
-
 ```
 npm install
 ```
 
 Start the development web server:
-
 ```
 npm run local
 ```
 
-Then use any browser as a client at `localhost:8080`.
+Then use any browser as a client at:
+```
+localhost:8080
+```
 
 ---
 

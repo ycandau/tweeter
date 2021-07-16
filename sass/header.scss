@@ -55,3 +55,9 @@ body > header {
     justify-content: flex-start;
   }
 }
+
+@media only screen and (min-width: 1200px) {
+  body > header {
+    grid-column: 2;
+  }
+}
