@@ -27,6 +27,9 @@ nav {
   cursor: pointer;
   transition: color 0.3s ease;
 }
+#compose.hide {
+  display: none;
+}
 
 #compose > i {
   color: #ff0000;
@@ -62,7 +65,14 @@ nav {
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.4);
   bottom: 1em;
   right: calc(5% - 1em + 1px);
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#to-top.show {
+  visibility: visible;
+  opacity: 1;
 }
 
 @keyframes wobbleUp {

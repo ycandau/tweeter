@@ -20,15 +20,41 @@
   $('#new-tweet').on('submit', onTweetSubmit);
   $('#compose').on('click', onComposeClick);
   $('#to-top').on('click', onToTopClick);
-  $(document).on('scroll', onScroll);
+
+  // For scroll use addEventListener() and capture at document level
+  // because there are two sources depending on responsive layout
+  // and scroll does not bubble up
+  document.addEventListener('scroll', onScroll, true);
 
   //----------------------------------------------------------------------------
-  // Helper: Scroll to top
+  // Helper: Scroll to top of a container
+
+  function scrollToTopOfContainer($container, scrollTop, maxDuration) {
+    // Duration is first proportional then capped
+    const duration = Math.min(maxDuration, scrollTop / 3);
+    $container
+      .animate({ scrollTop: 0 }, duration)
+      .promise()
+      .then(() => $('#tweet-text').focus());
+  }
+
+  //----------------------------------------------------------------------------
+  // Helper: Scroll to top of either main or document
 
   const scrollToTop = (maxDuration) => {
-    // Duration is first proportional then capped
-    const duration = Math.min(maxDuration, $(document).scrollTop() / 3);
-    $('html, body').animate({ scrollTop: 0 }, duration);
+    // Narrow layout
+    const scrollTopDoc = $(document).scrollTop();
+    if (scrollTopDoc) {
+      scrollToTopOfContainer($('html, body'), scrollTopDoc, maxDuration);
+      return;
+    }
+    // Wide layout
+    const $main = $('main');
+    const scrollTopMain = $main.scrollTop();
+    if (scrollTopMain) {
+      scrollToTopOfContainer($main, scrollTopMain, maxDuration);
+      return;
+    }
   };
 
   //----------------------------------------------------------------------------
@@ -93,23 +119,20 @@
 
   //----------------------------------------------------------------------------
   // Callback: Click events from compose button
-  // Toggle [blur/focus] and [slideUp/slideDown], scroll up if necessary
 
   function onComposeClick() {
     const $newTweet = $('#new-tweet');
     if ($newTweet.is(':visible')) {
-      $('#tweet-text').blur();
       $newTweet.slideUp(300);
+      $('#tweet-text').blur();
     } else {
-      scrollToTop(300);
       $newTweet.slideDown(300);
-      $('#tweet-text').focus();
+      scrollToTop(300);
     }
   }
 
   //----------------------------------------------------------------------------
   // Callback: Click events from scroll to top button
-  // Scroll, slidedown if necessary, focus
 
   function onToTopClick() {
     scrollToTop(300);
@@ -117,7 +140,6 @@
     if (!$newTweet.is(':visible')) {
       $newTweet.slideDown(300);
     }
-    $('#tweet-text').focus();
   }
 
   //----------------------------------------------------------------------------
@@ -125,12 +147,13 @@
   // Toggle between two navigation buttons
 
   function onScroll() {
-    if (!$(document).scrollTop()) {
-      $('#to-top').fadeOut(300);
-      $('#compose').fadeIn(300);
-    } else {
-      $('#to-top').fadeIn(300);
+    const scrollTop = Math.max($(document).scrollTop(), $('main').scrollTop());
+    if (scrollTop) {
+      $('#to-top').addClass('show');
       $('#compose').fadeOut(300);
+    } else {
+      $('#to-top').removeClass('show');
+      $('#compose').fadeIn(300);
     }
   }
 })(jQuery);
