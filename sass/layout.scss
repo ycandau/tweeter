@@ -1,6 +1,12 @@
-/*------------------------------------------------------------------------------
- * layout.css
- */
+//------------------------------------------------------------------------------
+// layout.scss
+//------------------------------------------------------------------------------
+
+@use 'base';
+@use 'colors';
+
+//------------------------------------------------------------------------------
+// General styling
 
 html {
   box-sizing: border-box;
@@ -13,10 +19,10 @@ html {
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 24px;
-  color: #545149;
-  background-color: #f4f1ec;
+  width: 100%;
+  @include base.font-main(24px);
+  color: colors.$primary-fg;
+  background-color: colors.$primary-bg;
   display: grid;
 }
 
@@ -24,11 +30,10 @@ main {
   padding: 0 5%;
 }
 
-@media only screen and (max-width: 768px) {
-  body {
-    width: 100%;
-  }
+//------------------------------------------------------------------------------
+// Responsive layout: Using CSS grid
 
+@media only screen and (max-width: 768px) {
   body > main {
     grid-row: 2;
   }
@@ -36,15 +41,9 @@ main {
 
 @media only screen and (min-width: 768px) {
   body {
-    width: 100%;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 120px 1fr;
-    height: calc(100vh - 120px);
-  }
-
-  body > nav {
-    grid-row: 1;
-    grid-column: 1 / 3;
+    grid-template-rows: base.$nav-height 1fr;
+    height: calc(100vh - #{base.$nav-height});
   }
 
   body > main {

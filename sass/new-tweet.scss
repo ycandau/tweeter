@@ -1,65 +1,86 @@
-/*------------------------------------------------------------------------------
- * new-tweet.scss
- */
+//------------------------------------------------------------------------------
+// new-tweet.scss
+//------------------------------------------------------------------------------
 
+@use 'base';
 @use 'colors';
 
 #new-tweet {
+  //----------------------------------------------------------------------------
+  // Container properties
+
   padding: 0.5em;
   margin: 1em 0 0 0;
-}
 
-#error {
-  border: 1px solid colors.$error;
-  color: colors.$error;
-  padding: 0.5em 1.5em;
-  margin: 0 -0.5em 1em -0.5em;
-  display: none;
-  justify-content: space-between;
-}
+  //----------------------------------------------------------------------------
+  // Error display
 
-#new-tweet > label {
-  width: 100%;
-  font-style: italic;
-}
+  #error {
+    border: 1px solid colors.$error;
+    color: colors.$error;
+    padding: 0.5em 1.5em;
+    margin: 0 -0.5em 1em -0.5em;
+    display: none;
+    justify-content: space-between;
+  }
 
-#new-tweet > textarea {
-  width: 100%;
-  height: 2.75em;
-  margin: 0.75em 0 0.5em 0;
-  background-color: inherit;
-  border-color: colors.$dark;
-  border-width: 0 0 1px 0;
-  resize: none;
-  outline: none;
-}
+  //----------------------------------------------------------------------------
+  // Label
 
-#new-tweet > textarea:hover,
-#new-tweet > textarea:focus {
-  border-width: 0 0 2px 0;
-}
+  label {
+    width: 100%;
+    font-style: italic;
+  }
 
-#new-tweet > footer {
-  width: 100%;
-  font-family: 'Bungee', cursive;
-  font-size: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-}
+  //----------------------------------------------------------------------------
+  // Textarea for input
 
-#new-tweet > footer > button {
-  padding: 0.25em 0.5em;
-  color: colors.$primary-bg;
-  background-color: colors.$secondary;
-  border: none;
-}
+  textarea {
+    width: 100%;
+    height: 2.75em;
+    margin: 0.75em 0 0.5em 0;
+    background-color: inherit;
+    border-color: colors.$dark;
+    border-width: 0 0 1px 0;
+    resize: none;
+    outline: none;
 
-#new-tweet > footer > button:hover {
-  /* @todo customize with animations */
-  color: colors.$highlight;
-}
-#new-tweet > footer > output.invalid {
-  color: colors.$error;
+    &:hover,
+    &:focus {
+      border-width: 0 0 2px 0;
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // Footer
+
+  footer {
+    width: 100%;
+    @include base.font-special(20px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    //--------------------------------------------------------------------------
+    // Submit tweet button
+
+    button {
+      padding: 0.25em 0.5em;
+      color: colors.$primary-bg;
+      background-color: colors.$secondary;
+      border: none;
+
+      &:hover {
+        @include colors.highlight();
+      }
+    }
+
+    //--------------------------------------------------------------------------
+    // Counter
+
+    output.invalid {
+      color: colors.$error;
+    }
+  }
 }

@@ -1,13 +1,10 @@
-/*------------------------------------------------------------------------------
- * tweet.scss
- */
 .tweet {
   border: 2px solid #000000;
   padding: 0.5em;
   margin: 1em 0 0 0;
 }
 .tweet:hover {
-  box-shadow: 3px 3px #88d8c0;
+  box-shadow: 3px 3px 3px #ffc219;
 }
 .tweet > header {
   display: flex;

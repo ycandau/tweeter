@@ -42,7 +42,7 @@ function createTweetElement(tweet) {
 }
 
 //------------------------------------------------------------------------------
-// Ajax: Get request to load tweets
+// Ajax: Load tweets with a get request
 
 function loadTweets() {
   return $.get(URL);
@@ -59,7 +59,7 @@ function renderTweets(tweets) {
 }
 
 //------------------------------------------------------------------------------
-// Refresh tweets: Combines load and render
+// Refresh tweets: Combine load and render
 
 function refreshTweets() {
   loadTweets()

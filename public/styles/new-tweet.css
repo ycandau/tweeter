@@ -1,12 +1,8 @@
-/*------------------------------------------------------------------------------
- * new-tweet.scss
- */
 #new-tweet {
   padding: 0.5em;
   margin: 1em 0 0 0;
 }
-
-#error {
+#new-tweet #error {
   border: 1px solid #ff0000;
   color: #ff0000;
   padding: 0.5em 1.5em;
@@ -14,13 +10,11 @@
   display: none;
   justify-content: space-between;
 }
-
-#new-tweet > label {
+#new-tweet label {
   width: 100%;
   font-style: italic;
 }
-
-#new-tweet > textarea {
+#new-tweet textarea {
   width: 100%;
   height: 2.75em;
   margin: 0.75em 0 0.5em 0;
@@ -30,13 +24,10 @@
   resize: none;
   outline: none;
 }
-
-#new-tweet > textarea:hover,
-#new-tweet > textarea:focus {
+#new-tweet textarea:hover, #new-tweet textarea:focus {
   border-width: 0 0 2px 0;
 }
-
-#new-tweet > footer {
+#new-tweet footer {
   width: 100%;
   font-family: "Bungee", cursive;
   font-size: 20px;
@@ -45,19 +36,15 @@
   justify-content: space-between;
   align-items: flex-end;
 }
-
-#new-tweet > footer > button {
+#new-tweet footer button {
   padding: 0.25em 0.5em;
   color: #f4f1ec;
   background-color: #4056a1;
   border: none;
 }
-
-#new-tweet > footer > button:hover {
-  /* @todo customize with animations */
+#new-tweet footer button:hover {
   color: #ffc219;
 }
-
-#new-tweet > footer > output.invalid {
+#new-tweet footer output.invalid {
   color: #ff0000;
 }

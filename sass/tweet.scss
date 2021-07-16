@@ -1,20 +1,24 @@
-/*------------------------------------------------------------------------------
- * tweet.scss
- */
+//------------------------------------------------------------------------------
+// tweet.scss
+//------------------------------------------------------------------------------
 
 @use 'colors';
 
 .tweet {
+  //----------------------------------------------------------------------------
+  // Container properties
+
   border: 2px solid colors.$dark;
   padding: 0.5em;
   margin: 1em 0 0 0;
 
   &:hover {
-    box-shadow: 3px 3px #88d8c0;
+    box-shadow: 3px 3px 3px colors.$highlight;
   }
 
-  //--------------------------------
+  //----------------------------------------------------------------------------
   // Tweet header
+
   > header {
     display: flex;
     justify-content: space-between;
@@ -33,8 +37,9 @@
     }
   }
 
-  //--------------------------------
+  //----------------------------------------------------------------------------
   // Tweet content
+
   > div {
     border-color: colors.$dark;
     border-style: solid;
@@ -43,8 +48,9 @@
     word-wrap: break-word;
   }
 
-  //--------------------------------
+  //----------------------------------------------------------------------------
   // Tweet footer
+
   > footer {
     margin-top: 0.5em;
     font-size: 18px;
@@ -54,10 +60,10 @@
     i {
       color: colors.$secondary;
       padding: 0 0.25em;
-    }
 
-    i:hover {
-      color: colors.$highlight;
+      &:hover {
+        @include colors.highlight();
+      }
     }
   }
 }

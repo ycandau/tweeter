@@ -2,11 +2,13 @@
 // header.scss
 //------------------------------------------------------------------------------
 
+@use 'base';
 @use 'colors';
-@use 'dimensions';
 
 body > header {
-  // Main properties
+  //----------------------------------------------------------------------------
+  // Container properties
+
   width: 100%;
   background-color: colors.$tertiary;
   background-image: url('../images/cross-scratches.png');
@@ -14,14 +16,18 @@ body > header {
   flex-direction: column;
   align-items: center;
 
+  //----------------------------------------------------------------------------
   // Name
-  > h2 {
+
+  h2 {
     font-weight: normal;
     margin-bottom: 0;
   }
 
+  //----------------------------------------------------------------------------
   // Avatar
-  > img {
+
+  img {
     width: 200px;
     height: 200px;
     margin: 0 10px;
@@ -29,12 +35,12 @@ body > header {
 }
 
 //------------------------------------------------------------------------------
-// Responsive layout: Using grid from container
+// Responsive layout: Using CSS grid
 
 @media only screen and (max-width: 768px) {
   body > header {
     grid-row: 1;
-    height: 400px;
+    height: base.$header-height-narrow;
     padding-top: 60px;
     justify-content: center;
   }
@@ -44,7 +50,7 @@ body > header {
   body > header {
     grid-row: 2;
     grid-column: 1;
-    height: calc(100vh - 120px);
+    height: calc(100vh - #{base.$nav-height});
     padding-top: 2em;
     justify-content: flex-start;
   }

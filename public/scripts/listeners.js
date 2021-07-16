@@ -22,7 +22,7 @@
   $('#to-top').on('click', onToTopClick);
 
   // For scroll use addEventListener() and capture at document level
-  // because there are two sources depending on responsive layout
+  // because there are two sources depending on the responsive layout,
   // and scroll does not bubble up
   document.addEventListener('scroll', onScroll, true);
 
@@ -80,7 +80,7 @@
 
   //----------------------------------------------------------------------------
   // Callback: Input events from textarea
-  // Update counter and negative class
+  // Update counter and invalid class
 
   function onInput() {
     const count = MAX_LENGTH - $(this).val().length;
