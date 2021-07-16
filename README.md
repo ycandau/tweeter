@@ -51,7 +51,7 @@ The stylesheets have been refactored using **SASS preprocessing** features:
 
 #### Narrow display
 
-![Narrow scrolled to the top](./docs/narrow-scrolled-up.png)
+![Narrow scrolled to the top](./docs/new-narrow-scrolled-up.png)
 
 #### Wide display scrolled to the top
 
