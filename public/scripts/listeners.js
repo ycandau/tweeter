@@ -21,7 +21,7 @@
   $('#compose').on('click', onComposeClick);
   $('#to-top').on('click', onToTopClick);
 
-  // For scroll use addEventListener() and capture at document level
+  // For scroll events use addEventListener() and capture at document level
   // because there are two sources depending on the responsive layout,
   // and scroll does not bubble up
   document.addEventListener('scroll', onScroll, true);
@@ -51,20 +51,20 @@
     // Wide layout
     const $main = $('main');
     const scrollTopMain = $main.scrollTop();
-    if (scrollTopMain) {
-      scrollToTopOfContainer($main, scrollTopMain, maxDuration);
-      return;
-    }
+    scrollToTopOfContainer($main, scrollTopMain, maxDuration);
   };
 
   //----------------------------------------------------------------------------
   // Init: Set up the div used for error display
 
   function setupErrorDisplay() {
-    const exclamation = '<i class="fas fa-exclamation"></i>';
     $('#error')
       .css({ display: 'flex' }) // override initial { display: none }
-      .append(`${exclamation}<span></span>${exclamation}`)
+      .append(
+        createIcons('exclamation'),
+        $('<span>'),
+        createIcons('exclamation')
+      )
       .hide(0);
   }
 
