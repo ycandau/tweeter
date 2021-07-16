@@ -1,0 +1,51 @@
+//------------------------------------------------------------------------------
+// header.scss
+//------------------------------------------------------------------------------
+
+@use 'colors';
+@use 'dimensions';
+
+body > header {
+  // Main properties
+  width: 100%;
+  background-color: colors.$tertiary;
+  background-image: url('../images/cross-scratches.png');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Name
+  > h2 {
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+
+  // Avatar
+  > img {
+    width: 200px;
+    height: 200px;
+    margin: 0 10px;
+  }
+}
+
+//------------------------------------------------------------------------------
+// Responsive layout: Using grid from container
+
+@media only screen and (max-width: 768px) {
+  body > header {
+    grid-row: 1;
+    height: 400px;
+    padding-top: 60px;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body > header {
+    grid-row: 2;
+    grid-column: 1;
+    height: calc(100vh - 120px);
+    padding-top: 2em;
+    justify-content: flex-start;
+  }
+}

@@ -1,14 +1,17 @@
 /*------------------------------------------------------------------------------
  * new-tweet.scss
  */
+
+@use 'colors';
+
 #new-tweet {
   padding: 0.5em;
   margin: 1em 0 0 0;
 }
 
 #error {
-  border: 1px solid #ff0000;
-  color: #ff0000;
+  border: 1px solid colors.$error;
+  color: colors.$error;
   padding: 0.5em 1.5em;
   margin: 0 -0.5em 1em -0.5em;
   display: none;
@@ -25,7 +28,7 @@
   height: 2.75em;
   margin: 0.75em 0 0.5em 0;
   background-color: inherit;
-  border-color: #000000;
+  border-color: colors.$dark;
   border-width: 0 0 1px 0;
   resize: none;
   outline: none;
@@ -38,7 +41,7 @@
 
 #new-tweet > footer {
   width: 100%;
-  font-family: "Bungee", cursive;
+  font-family: 'Bungee', cursive;
   font-size: 20px;
   display: flex;
   flex-direction: row;
@@ -48,16 +51,15 @@
 
 #new-tweet > footer > button {
   padding: 0.25em 0.5em;
-  color: #f4f1ec;
-  background-color: #4056a1;
+  color: colors.$primary-bg;
+  background-color: colors.$secondary;
   border: none;
 }
 
 #new-tweet > footer > button:hover {
   /* @todo customize with animations */
-  color: #ffc219;
+  color: colors.$highlight;
 }
-
 #new-tweet > footer > output.invalid {
-  color: #ff0000;
+  color: colors.$error;
 }

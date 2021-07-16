@@ -1,8 +1,14 @@
+//------------------------------------------------------------------------------
+// nav.scss
+//------------------------------------------------------------------------------
+
+@use 'colors';
+
 nav {
   width: 100%;
   height: 120px;
-  color: #ffffff;
-  background-color: #4056a1;
+  color: colors.$light;
+  background-color: colors.$secondary;
   padding: 0 1.5em;
   position: fixed;
   top: 0;
@@ -13,7 +19,7 @@ nav {
 }
 
 #logo {
-  font-family: "Bungee", cursive;
+  font-family: 'Bungee', cursive;
   font-size: 50px;
 }
 
@@ -23,13 +29,12 @@ nav {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-
 #compose.hide {
   display: none;
 }
 
 #compose > i {
-  color: #ff0000;
+  color: colors.$action;
 }
 
 @keyframes wobbleDown {
@@ -40,8 +45,9 @@ nav {
     transform: translateY(10px);
   }
 }
+
 #compose:hover {
-  color: #ffc219;
+  @include colors.highlight();
 }
 
 #compose:hover > i {
@@ -56,9 +62,9 @@ nav {
   height: 2em;
   border: none;
   border-radius: 1em;
-  background-color: #ff0000;
-  color: #f4f1ec;
-  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.4);
+  background-color: colors.$action;
+  color: colors.$primary-bg;
+  @include colors.shadow();
   bottom: 1em;
   right: calc(5% - 1em + 1px);
   visibility: hidden;
@@ -82,10 +88,11 @@ nav {
     transform: translateY(-5px);
   }
 }
+
 #to-top:hover {
   width: calc(2em + 1px);
   height: calc(2em + 1px);
-  color: #ffc219;
+  @include colors.highlight();
 }
 
 #to-top:hover > i {
